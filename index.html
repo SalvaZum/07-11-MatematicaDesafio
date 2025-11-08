@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafío de Logaritmos</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .phase {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .phase.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .exercise {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #ffcc00;
+        }
+        
+        .exercise h3 {
+            margin-bottom: 15px;
+            color: #ffcc00;
+        }
+        
+        .exercise p {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            background-color: #ffcc00;
+            color: #1a2a6c;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto;
+        }
+        
+        button:hover {
+            background-color: #ffd633;
+            transform: scale(1.05);
+        }
+        
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .correct {
+            background-color: rgba(0, 200, 0, 0.3);
+            color: #7fff7f;
+        }
+        
+        .incorrect {
+            background-color: rgba(200, 0, 0, 0.3);
+            color: #ff7f7f;
+        }
+        
+        .boss-container {
+            background: linear-gradient(135deg, #8B0000, #B22222);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 3px solid #ffcc00;
+            text-align: center;
+        }
+        
+        .boss-container h2 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .celebration {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #00b09b, #96c93d);
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .celebration h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .celebration p {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #ffcc00;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .instructions {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .fraction-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .fraction-input input {
+            width: 80px;
+            text-align: center;
+        }
+        
+        .fraction-input span {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Desafío Matematico</h1>
+        
+        <div class="instructions">
+            <p>Bufona! ¿Como estas? Espero que tengas la cabeza fresca porque para conseguir tu regalito de hoy, vas a tener que trabajar un poquito jlaksja. Exitoss</p>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <!-- Fase 1: Ejercicios básicos -->
+        <div class="phase active" id="phase1">
+
+            <div class="exercise">
+                <h3>Ejercicio 1</h3>
+                <p>log₂ 128 = ?</p>
+                <input type="number" id="ex1" placeholder="Ingresa tu respuesta">
+                <div class="feedback" id="feedback1"></div>
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio 2</h3>
+                <p>log₅ (1/625) = ?</p>
+                <input type="number" id="ex2" placeholder="Ingresa tu respuesta">
+                <div class="feedback" id="feedback2"></div>
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio 3</h3>
+                <p>log₄ 64 = ?</p>
+                <input type="number" id="ex3" placeholder="Ingresa tu respuesta">
+                <div class="feedback" id="feedback3"></div>
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio 4</h3>
+                <p>log₂ (1/16) = ?</p>
+                <input type="number" id="ex4" placeholder="Ingresa tu respuesta">
+                <div class="feedback" id="feedback4"></div>
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio 5</h3>
+                <p>log₃ (1/81) = ?</p>
+                <input type="number" id="ex5" placeholder="Ingresa tu respuesta">
+                <div class="feedback" id="feedback5"></div>
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio 6</h3>
+                <p>log₁/₂ 16 = ?</p>
+                <input type="number" id="ex6" placeholder="Ingresa tu respuesta">
+                <div class="feedback" id="feedback6"></div>
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio 7</h3>
+                <p>log₁/₃ 27 = ?</p>
+                <input type="number" id="ex7" placeholder="Ingresa tu respuesta">
+                <div class="feedback" id="feedback7"></div>
+            </div>
+            
+            <button id="checkPhase1">Verificar Respuestas</button>
+        </div>
+        
+        <!-- Fase 2: Jefe Final -->
+        <div class="phase" id="phase2">
+            <div class="boss-container">
+                <h2>¡JEFE FINAL!</h2>
+                <div class="exercise">
+                    <h3>Ejercicio del Jefe</h3>
+                    <p>log₃ (√[3]{9} · √[5]{27})²</p>
+                    <p>Encuentra el valor de X</p>
+                    <div class="fraction-input">
+                        <input type="number" id="bossNumerator" placeholder="Numerador">
+                        <span>/</span>
+                        <input type="number" id="bossDenominator" placeholder="Denominador">
+                    </div>
+                    <div class="feedback" id="bossFeedback"></div>
+                </div>
+                <button id="checkBoss">Verificar Respuesta</button>
+            </div>
+        </div>
+        
+        <!-- Pantalla de Felicitaciones -->
+        <div class="celebration" id="celebration">
+            <h2>¡FELICITACIONES MI BUFONA!</h2>
+            <p>Se te da bien esto eh, ahora podes reclamar tu regalito</p>
+            <p>Vas a tener que buscar en lugar </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Respuestas correctas para los ejercicios básicos
+            const correctAnswers = {
+                ex1: 7,     // log₂ 128 = 7 (2^7 = 128)
+                ex2: -4,    // log₅ (1/625) = -4 (5^-4 = 1/625)
+                ex3: 3,     // log₄ 64 = 3 (4^3 = 64)
+                ex4: -4,    // log₂ (1/16) = -4 (2^-4 = 1/16)
+                ex5: -4,    // log₃ (1/81) = -4 (3^-4 = 1/81)
+                ex6: -4,    // log₁/₂ 16 = -4 ((1/2)^-4 = 16)
+                ex7: -3     // log₁/₃ 27 = -3 ((1/3)^-3 = 27)
+            };
+            
+            // Respuesta correcta para el jefe final
+            const bossNumerator = 38;
+            const bossDenominator = 15;
+            
+            // Elementos del DOM
+            const phase1 = document.getElementById('phase1');
+            const phase2 = document.getElementById('phase2');
+            const celebration = document.getElementById('celebration');
+            const checkPhase1Btn = document.getElementById('checkPhase1');
+            const checkBossBtn = document.getElementById('checkBoss');
+            const restartBtn = document.getElementById('restart');
+            const progressBar = document.getElementById('progress');
+            
+            // Contador de ejercicios correctos
+            let correctCount = 0;
+            const totalExercises = Object.keys(correctAnswers).length;
+            
+            // Verificar respuestas de la fase 1
+            checkPhase1Btn.addEventListener('click', function() {
+                let allCorrect = true;
+                
+                for (const [exerciseId, correctAnswer] of Object.entries(correctAnswers)) {
+                    const input = document.getElementById(exerciseId);
+                    const feedback = document.getElementById(`feedback${exerciseId.substring(2)}`);
+                    
+                    if (parseInt(input.value) === correctAnswer) {
+                        feedback.textContent = "¡Correcto!";
+                        feedback.className = "feedback correct";
+                        feedback.style.display = "block";
+                        
+                        if (!input.disabled) {
+                            correctCount++;
+                            input.disabled = true;
+                        }
+                    } else {
+                        feedback.textContent = "Incorrecto. Intenta nuevamente.";
+                        feedback.className = "feedback incorrect";
+                        feedback.style.display = "block";
+                        allCorrect = false;
+                    }
+                }
+                
+                // Actualizar barra de progreso
+                updateProgress();
+                
+                // Si todos los ejercicios son correctos, avanzar a la fase 2
+                if (allCorrect) {
+                    setTimeout(function() {
+                        phase1.classList.remove('active');
+                        phase2.classList.add('active');
+                    }, 1000);
+                }
+            });
+            
+            // Verificar respuesta del jefe final
+            checkBossBtn.addEventListener('click', function() {
+                const bossNumeratorInput = document.getElementById('bossNumerator');
+                const bossDenominatorInput = document.getElementById('bossDenominator');
+                const bossFeedback = document.getElementById('bossFeedback');
+                
+                const userNumerator = parseInt(bossNumeratorInput.value);
+                const userDenominator = parseInt(bossDenominatorInput.value);
+                
+                if (userNumerator === bossNumerator && userDenominator === bossDenominator) {
+                    bossFeedback.textContent = "¡Correcto! Has derrotado al jefe final.";
+                    bossFeedback.className = "feedback correct";
+                    bossFeedback.style.display = "block";
+                    
+                    setTimeout(function() {
+                        phase2.classList.remove('active');
+                        celebration.style.display = "block";
+                        progressBar.style.width = "100%";
+                    }, 1500);
+                } else {
+                    bossFeedback.textContent = "Incorrecto. Sigue intentando.";
+                    bossFeedback.className = "feedback incorrect";
+                    bossFeedback.style.display = "block";
+                }
+            });
+            
+            // Reiniciar el juego
+            restartBtn.addEventListener('click', function() {
+                // Restablecer todos los campos de entrada
+                const inputs = document.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.value = '';
+                    input.disabled = false;
+                });
+                
+                // Ocultar todos los mensajes de retroalimentación
+                const feedbacks = document.querySelectorAll('.feedback');
+                feedbacks.forEach(feedback => {
+                    feedback.style.display = 'none';
+                });
+                
+                // Restablecer contador y barra de progreso
+                correctCount = 0;
+                progressBar.style.width = "0%";
+                
+                // Volver a la fase 1
+                celebration.style.display = "none";
+                phase2.classList.remove('active');
+                phase1.classList.add('active');
+            });
+            
+            // Actualizar la barra de progreso
+            function updateProgress() {
+                const progressPercentage = (correctCount / totalExercises) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+            }
+        });
+    </script>
+</body>
+</html>
